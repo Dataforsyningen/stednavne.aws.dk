@@ -541,7 +541,7 @@ exports.corssupported= function () {
 function formatAa(vejnavn,husnr,supplerendebynavn,postnr,postnrnavn,enlinje) {
 	let separator= (enlinje || typeof enlinje != 'undefined')?", ":"<br/>";
 	supplerendebynavn= supplerendebynavn?separator + supplerendebynavn:"";
-	return `${vejnavn} ${husnr}${supplerendebynavn}${separator}${postnr} ${postnrnavn}`;
+	return vejnavn + " " + husnr + supplerendebynavn + separator + postnr + " " + postnrnavn
 }
 
 exports.formatAdgangsadresse= function (record, enlinje) {

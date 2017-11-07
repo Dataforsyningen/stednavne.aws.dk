@@ -13,7 +13,7 @@
   "dependencies": {
     "autocomplete.js": "^0.29.0",
     "dawa-kort": "^0.1.18",
-    "dawa-util": "^0.1.7",
+    "dawa-util": "^0.1.8",
     "leaflet": "^1.2.0",
     "leaflet-contextmenu": "^1.4.0",
     "proj4leaflet": "^1.0.2",
