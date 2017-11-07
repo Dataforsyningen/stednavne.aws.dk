@@ -1238,8 +1238,10 @@ exports.geojsontowgs84= function(geojson) {
 var autocomplete = __webpack_require__(14)
   , dawautil = __webpack_require__(9);
 
+var host= "http://dawa.aws.dk/";
+
 function visstednavn(map, stednavn) {
-  fetch("http://dawa-p2.aws.dk/stednavne/"+stednavn.id+'?format=geojson').then( function(response) {
+  fetch(host+"stednavne/"+stednavn.id+'?format=geojson').then( function(response) {
     response.json().then( function ( data ) {
 
       if (data.geometri || data.features && data.features.length === 0) {
@@ -1255,7 +1257,7 @@ function visstednavn(map, stednavn) {
         , y= stednavn.visueltcenter[0];
       var popup = L.popup()
         .setLatLng([x, y])
-        .setContent("<a target='_blank' href='https://dawa-p2.aws.dk/stednavne/"+stednavn.id+"'>" + stednavn.navn + '<br/>' + stednavn.hovedtype + ', ' + stednavn.undertype + "</a>")
+        .setContent("<a target='_blank' href='" + host + "stednavne/"+stednavn.id+"'>" + stednavn.navn + '<br/>' + stednavn.hovedtype + ', ' + stednavn.undertype + "</a>")
         .openOn(map);
       geojsonlayer.bindPopup(popup);
       // var x= adgangsadresse.adgangspunkt.koordinater[1]
@@ -1275,7 +1277,7 @@ function visstednavn(map, stednavn) {
 }
 
 function search(query, callback) {
-  fetch("http://dawa-p2.aws.dk/stednavne/autocomplete?fuzzy&q="+query+"*")
+  fetch(host + "stednavne/autocomplete?fuzzy&q="+query+"*")
   .catch(function (error) {
     alert(error.message);
     callback([]);
