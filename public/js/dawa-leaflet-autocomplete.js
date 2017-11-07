@@ -3,7 +3,7 @@
 var autocomplete = require('autocomplete.js')
   , dawautil = require('dawa-util');
 
-var host= "http://dawa.aws.dk/";
+var host= "https://dawa.aws.dk/";
 
 function visstednavn(map, stednavn) {
   fetch(host+"stednavne/"+stednavn.id+'?format=geojson').then( function(response) {

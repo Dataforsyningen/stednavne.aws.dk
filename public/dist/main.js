@@ -1238,7 +1238,7 @@ exports.geojsontowgs84= function(geojson) {
 var autocomplete = __webpack_require__(14)
   , dawautil = __webpack_require__(9);
 
-var host= "http://dawa.aws.dk/";
+var host= "https://dawa.aws.dk/";
 
 function visstednavn(map, stednavn) {
   fetch(host+"stednavne/"+stednavn.id+'?format=geojson').then( function(response) {
