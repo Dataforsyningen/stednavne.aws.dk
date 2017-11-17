@@ -155,12 +155,7 @@ function hvor(e) {
     promises[antal].format= formatpostnummer;
     antal++;
 
-    // bebyggelser
-    promises.push(fetch(dawautil.danUrl("https://dawa.aws.dk/bebyggelser",{x: e.latlng.lng, y: e.latlng.lat})));
-    promises[antal].format= formatbebyggelse;
-    antal++;
-
-    // kommune
+        // kommune
     promises.push(fetch(dawautil.danUrl("https://dawa.aws.dk/kommuner/reverse",{x: e.latlng.lng, y: e.latlng.lat})));
     promises[antal].format= formatdata("Kommune", 'kommuner');
     antal++;
@@ -188,6 +183,11 @@ function hvor(e) {
     // storkreds
     promises.push(fetch(dawautil.danUrl("https://dawa.aws.dk/storkredse/reverse",{x: e.latlng.lng, y: e.latlng.lat})));
     promises[antal].format= formatstorkreds;
+    antal++;
+
+    // stednavne
+    promises.push(fetch(dawautil.danUrl("https://dawa.aws.dk/stednavne",{x: e.latlng.lng, y: e.latlng.lat})));
+    promises[antal].format= formatstednavne;
     antal++;
 
     Promise.all(promises) 
@@ -228,11 +228,11 @@ function hvor(e) {
   function formatjordstykke(data) {
     return "<li>Jordstykke: <a target='_blank' href='https://dawa.aws.dk/jordstykker/"+data.ejerlav.kode+"/"+data.matrikelnr+"'>" + (data.ejerlav.navn?data.ejerlav.navn+" ":"") + data.ejerlav.kode + " " +data.matrikelnr + "</a></li>";
   }
-
-  function formatbebyggelse(data) {
+ 
+  function formatstednavne(data) {
     let tekst= '';
     for (var i= 0; i<data.length;i++) {
-      tekst= tekst + "<li>" + capitalizeFirstLetter(data[i].type)+": <a target='_blank' href='https://dawa.aws.dk/bebyggelser/"+data[i].id+"'>" + data[i].navn + "</a></li>";
+      tekst= tekst + "<li>" + capitalizeFirstLetter(data[i].undertype)+": <a target='_blank' href='https://dawa.aws.dk/stednavne/"+data[i].id+"'>" + data[i].navn + "</a></li>";
     }
     return tekst;
   }
