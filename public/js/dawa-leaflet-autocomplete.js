@@ -3,10 +3,25 @@
 var autocomplete = require('autocomplete.js')
   , dawautil = require('dawa-util');
 
-var host= "https://dawa.aws.dk/";
+var host= "https://dawa.aws.dk/"; 
+let miljø= getQueryVariable('m');
+if (miljø) {
+  host= host.replace('dawa',miljø); 
+} 
+
+function getQueryVariable(variable) {
+  var query = window.location.search.substring(1);
+  var vars = query.split("&");
+  for (var i=0; i<vars.length; i++) {
+    var pair = vars[i].split("=");
+    if (pair[0] == variable) {
+      return pair[1];
+    }
+  }
+}
 
 function visstednavn(map, stednavn) {
-  fetch(host+"stednavne/"+stednavn.id+'?format=geojson').then( function(response) {
+  fetch(host+"steder/"+stednavn.sted.id + '?format=geojson').then( function(response) {
     response.json().then( function ( data ) {
 
       if (data.geometri || data.features && data.features.length === 0) {
@@ -18,11 +33,11 @@ function visstednavn(map, stednavn) {
 
       map.fitBounds(geojsonlayer.getBounds());
 
-      var x= stednavn.visueltcenter[1]
-        , y= stednavn.visueltcenter[0];
+      var x= stednavn.sted.visueltcenter[1]
+        , y= stednavn.sted.visueltcenter[0];
       var popup = L.popup()
         .setLatLng([x, y])
-        .setContent("<a target='_blank' href='" + host + "stednavne/"+stednavn.id+"'>" + stednavn.navn + '<br/>' + stednavn.hovedtype + ', ' + stednavn.undertype + "</a>")
+        .setContent("<a target='_blank' href='" + host + "steder/"+stednavn.sted.id+"'>" + stednavn.navn + '<br/>' + stednavn.sted.hovedtype + ', ' + stednavn.sted.undertype + "</a>")
         .openOn(map);
       geojsonlayer.bindPopup(popup);
       // var x= adgangsadresse.adgangspunkt.koordinater[1]
@@ -42,7 +57,7 @@ function visstednavn(map, stednavn) {
 }
 
 function search(query, callback) {
-  fetch(host + "stednavne/autocomplete?fuzzy&q="+query+"*")
+  fetch(host + "stednavne2/autocomplete?fuzzy&q="+query+"*")
   .catch(function (error) {
     alert(error.message);
     callback([]);
@@ -88,7 +103,7 @@ L.Control.Search = L.Control.extend({
           displayKey: 'navn',
           templates: {
             suggestion: function(suggestion) {
-              return '<div>' + suggestion.navn + " (" + suggestion.hovedtype + ", " + suggestion.undertype + ')</div>';
+              return '<div>' + suggestion.navn + " (" + suggestion.sted.hovedtype + ", " + suggestion.sted.undertype + ')' + ', ' +  suggestion.sted.kommuner[0].navn + '</div>';
             }
           }
         }
