@@ -37,12 +37,11 @@ function visstednavn(map, stednavn) {
         , y= stednavn.sted.visueltcenter[0];
       var popup = L.popup()
         .setLatLng([x, y])
-        .setContent("<a target='_blank' href='" + host + "steder/"+stednavn.sted.id+"'>" + stednavn.navn + '<br/>' + stednavn.sted.hovedtype + ', ' + stednavn.sted.undertype + "</a>")
+        .setContent("<a href='" + host.replace('dawa', 'info') + "steder/"+stednavn.sted.id+"'>" + stednavn.navn + '<br/>' + stednavn.sted.hovedtype + ', ' + stednavn.sted.undertype + "</a>")
         .openOn(map);
       geojsonlayer.bindPopup(popup);
-      // var x= adgangsadresse.adgangspunkt.koordinater[1]
-      //   , y= adgangsadresse.adgangspunkt.koordinater[0];
-      // var marker= L.circleMarker(L.latLng(x, y), {color: 'red', fillColor: 'red', stroke: true, fillOpacity: 1.0, radius: 4, weight: 2, opacity: 1.0}).addTo(map);//defaultpointstyle);
+      
+      var marker= L.circleMarker(L.latLng(x, y), {color: 'blue', fillColor: 'blue', stroke: true, fillOpacity: 1.0, radius: 2, weight: 2, opacity: 1.0}).addTo(map);//defaultpointstyle);
       // var popup= marker.bindPopup(L.popup().setContent("<a target='_blank' href='https://dawa.aws.dk/adgangsadresser?id="+adgangsadresse.id+"'>" + dawautil.formatAdgangsadresse(adgangsadresse) + "</a>"),{autoPan: true});
       // if (adgangsadresse.vejpunkt) {
       //   var vx= adgangsadresse.vejpunkt.koordinater[1]
