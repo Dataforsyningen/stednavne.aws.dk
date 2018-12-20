@@ -102,7 +102,7 @@ L.Control.Search = L.Control.extend({
           displayKey: 'navn',
           templates: {
             suggestion: function(suggestion) {
-              return '<div>' + suggestion.navn + " (" + suggestion.sted.hovedtype + ", " + suggestion.sted.undertype + ')' + ', ' +  suggestion.sted.kommuner[0].navn + '</div>';
+              return '<div>' + suggestion.navn + " (" + suggestion.sted.hovedtype + ", " + suggestion.sted.undertype + ')' + (suggestion.sted.kommuner[0]?', ' +  suggestion.sted.kommuner[0].navn:'') + '</div>';
             }
           }
         }
